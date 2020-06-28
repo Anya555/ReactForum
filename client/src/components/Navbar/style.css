@@ -1,0 +1,12 @@
+.navb {
+  background-color: black !important;
+}
+
+.brand {
+  color: "white" !important;
+  text-transform: uppercase;
+}
+
+.ask-question {
+  text-transform: uppercase;
+}
