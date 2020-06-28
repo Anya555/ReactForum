@@ -9,6 +9,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
 
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static(path.join(__dirname, "build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+}
+
 // Updates DB before beginning the express service
 // force:true is essentially the same as DROP DATABASE IF EXISTS
 db.sequelize.sync({ force: true }).then(function () {
