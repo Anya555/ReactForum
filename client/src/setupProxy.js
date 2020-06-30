@@ -3,7 +3,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: process.env.PORT || 3001,
+      target: "https://coding-forum.herokuapp.com/" || "http://localhost:3001",
       changeOrigin: true,
     })
   );
