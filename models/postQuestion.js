@@ -3,6 +3,8 @@ module.exports = function (sequelize, DataTypes) {
     title: DataTypes.STRING,
     body: DataTypes.STRING,
     code: DataTypes.STRING,
+    likes: DataTypes.INTEGER,
+    dislikes: DataTypes.INTEGER,
   });
   return Questions;
 };

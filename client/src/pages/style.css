@@ -1,0 +1,11 @@
+.count {
+  font-weight: bold;
+}
+
+.question {
+  color: #17a2b8;
+}
+
+.question:hover {
+  text-decoration: none;
+}

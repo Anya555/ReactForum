@@ -10,3 +10,15 @@
 .ask-question {
   text-transform: uppercase;
 }
+
+.home {
+  color: white;
+  font-size: large;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.home:hover {
+  text-decoration: none;
+  color: #17a2b8;
+}

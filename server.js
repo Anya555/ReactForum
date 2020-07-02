@@ -17,9 +17,8 @@ if (process.env.NODE_ENV == "production") {
   });
 }
 
-// Updates DB before beginning the express service
 // force:true is essentially the same as DROP DATABASE IF EXISTS
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
   });

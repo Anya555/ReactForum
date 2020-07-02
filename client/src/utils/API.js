@@ -6,7 +6,8 @@ export default {
   },
 
   displayAllQuestions: () => {
-    console.log("api route hit");
     return axios.get("/api/questions");
   },
+
+  
 };

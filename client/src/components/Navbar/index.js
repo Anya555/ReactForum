@@ -13,15 +13,19 @@ const NavBar = () => {
       <Navbar className="navb" bg="dark" variant="dark">
         <Navbar.Brand className="brand">Coding Forum</Navbar.Brand>
         <Nav className="mr-auto"></Nav>
-
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Link to="/post-question">
-            <Button variant="outline-info" className="ask-question">
-              Ask question
-            </Button>
-          </Link>
         </Form>
+        <Link to="/post-question">
+          <Button variant="outline-info" className="ask-question">
+            Ask question
+          </Button>
+        </Link>
+        <Link to="/">
+          <Button variant="link" className="home">
+            Home
+          </Button>
+        </Link>
       </Navbar>
     </>
   );

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./style.css";
 import API from "../../utils/API";
 
-const PostQuestion = () => {
+const PostQuestion = (props) => {
   const [formObject, setFormObject] = useState([]);
 
   const handleInputChange = (e) => {
@@ -18,6 +19,7 @@ const PostQuestion = () => {
     API.saveQuestionToDb(formObject)
       .then((res) => {
         console.log(res);
+        props.history.replace("/");
       })
       .catch((error) => {
         console.log(error.response);
@@ -84,4 +86,4 @@ const PostQuestion = () => {
     </>
   );
 };
-export default PostQuestion;
+export default withRouter(PostQuestion);
