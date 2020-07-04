@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
+import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import "./style.css";
 
 const Question = (props) => {
-  console.log(props.question);
-  console.log(props.questions);
   return (
     <>
       <div className="container">
         <div className="row">
           <div className="col-md-8 offset-sm-2 col-sm-12">
             <br></br>
-            {/* <h2>{props.question.title}</h2> */}
+
+            <h2>{props.questionData.title}</h2>
             <div className="row">
               <div className="col-md-2 likes">
                 <AiOutlineLike />
@@ -22,9 +22,10 @@ const Question = (props) => {
                 <AiOutlineDislike />
               </div>
             </div>
+            <hr></hr>
             <br></br>
-            {/* <p>{props.question.body}</p>
-            <p>{props.question.code}</p> */}
+            <p>{props.questionData.body}</p>
+            <Card className="code">{props.questionData.code}</Card>
           </div>
         </div>
         {/* <div className="row">

@@ -1,3 +1,9 @@
 .likes {
   font-size: x-large;
 }
+
+.code {
+  background-color: rgb(233, 229, 229);
+  border-radius: 0;
+  border-color: rgb(233, 229, 229);
+}
