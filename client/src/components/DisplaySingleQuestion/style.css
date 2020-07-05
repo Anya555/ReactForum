@@ -1,6 +1,10 @@
 .likes {
-  font-size: large;
   cursor: pointer;
+}
+
+.likes-icon {
+  padding-right: 5px;
+  font-size: x-large;
 }
 
 .code {

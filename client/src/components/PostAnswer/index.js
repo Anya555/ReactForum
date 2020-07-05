@@ -9,7 +9,6 @@ const Answer = (props) => {
 
   useEffect(() => {
     if (shouldSave === true) {
-      console.log(true);
       addAnswerToDb();
     }
   }, [shouldSave]);
@@ -39,6 +38,7 @@ const Answer = (props) => {
     });
     setShouldSave(true);
   };
+
   return (
     <>
       <Form>

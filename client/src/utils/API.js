@@ -17,8 +17,10 @@ export default {
   },
 
   postAnswer: (answer) => {
-    console.log("api route hit");
-    console.log(answer);
     return axios.post("/api/answers", answer);
+  },
+
+  getAllAnswers: () => {
+    return axios.get("/api/answers");
   },
 };

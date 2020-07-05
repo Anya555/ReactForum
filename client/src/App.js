@@ -12,7 +12,6 @@ function App() {
   const showQuestion = (questionToShow) => {
     questions.map((question) => {
       if (question.id === questionToShow.id) {
-        console.log(question);
         setQuestionData(question);
       }
       return question;

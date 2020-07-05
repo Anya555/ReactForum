@@ -11,9 +11,11 @@ const Question = (props) => {
   const [momentDate, setMomentDate] = useState("");
   const [likesCount, setLikesCount] = useState(0);
   const [dislikesCount, setDislikesCount] = useState(0);
+  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     postDate();
+    showAnswers();
   }, []);
 
   const postDate = () => {
@@ -33,6 +35,22 @@ const Question = (props) => {
       });
   };
 
+  const showAnswers = () => {
+    API.getAllAnswers()
+      .then((res) => {
+        const newAnswers = [];
+        res.data.forEach((answer) => {
+          if (answer.questionId === props.questionData.id) {
+            newAnswers.push(answer);
+          }
+        });
+        setAnswers(newAnswers);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
   return (
     <>
       <div className="container">
@@ -43,11 +61,14 @@ const Question = (props) => {
             <h2>{props.questionData.title}</h2>
             <div className="row">
               <div className="col-md-2 likes">
-                <AiOutlineLike onClick={() => updateLikesCount()} />
+                <AiOutlineLike
+                  className="likes-icon"
+                  onClick={() => updateLikesCount()}
+                />
                 {likesCount}
               </div>
               <div className="col-md-2 likes">
-                <AiOutlineDislike />
+                <AiOutlineDislike className="likes-icon" />
                 {dislikesCount}
               </div>
               <div className="asked">asked</div>
@@ -57,7 +78,16 @@ const Question = (props) => {
             <br></br>
             <p>{props.questionData.body}</p>
             <Card className="code">{props.questionData.code}</Card>
+            <hr></hr>
             <br></br>
+            {answers.map((answer) => {
+              return (
+                <div key={answer.id}>
+                  <p>{answer.body}</p>
+                  <hr></hr>
+                </div>
+              );
+            })}
             <PostAnswer questionData={props.questionData} />
           </div>
         </div>
