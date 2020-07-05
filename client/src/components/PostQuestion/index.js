@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -8,23 +8,35 @@ import API from "../../utils/API";
 
 const PostQuestion = (props) => {
   const [formObject, setFormObject] = useState([]);
+  const [shouldSave, setShouldSave] = useState(false);
+
+  useEffect(() => {
+    if (shouldSave === true) {
+      addItemToDb();
+    }
+  }, [shouldSave]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormObject({ ...formObject, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const addItemToDb = () => {
     API.saveQuestionToDb(formObject)
       .then((res) => {
-        console.log(res);
         props.history.replace("/");
       })
       .catch((error) => {
         console.log(error.response);
       });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormObject({ ...formObject, likes: 0, dislikes: 0 });
+    setShouldSave(true);
+  };
+
   return (
     <>
       <div className="container">
