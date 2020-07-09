@@ -5,6 +5,7 @@ module.exports = function (sequelize, DataTypes) {
     code: DataTypes.STRING,
     likes: DataTypes.INTEGER,
     dislikes: DataTypes.INTEGER,
+    views: DataTypes.INTEGER,
   });
   return Questions;
 };

@@ -16,3 +16,7 @@
 .asked {
   padding-right: 5px;
 }
+
+.answer {
+  font-weight: bold;
+}

@@ -24,6 +24,7 @@ const PostQuestion = (props) => {
   const addItemToDb = () => {
     API.saveQuestionToDb(formObject)
       .then((res) => {
+        console.log(res);
         props.history.replace("/");
       })
       .catch((error) => {
@@ -33,7 +34,7 @@ const PostQuestion = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormObject({ ...formObject, likes: 0, dislikes: 0 });
+    setFormObject({ ...formObject, likes: 0, dislikes: 0, views: 0 });
     setShouldSave(true);
   };
 

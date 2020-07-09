@@ -4,7 +4,8 @@ import Button from "react-bootstrap/Button";
 import API from "../../utils/API";
 
 const Answer = (props) => {
-  const [formObject, setFormObject] = useState([]);
+  const defaultInput = { body: "" };
+  const [formObject, setFormObject] = useState(defaultInput);
   const [shouldSave, setShouldSave] = useState(false);
 
   useEffect(() => {
@@ -21,7 +22,9 @@ const Answer = (props) => {
   const addAnswerToDb = () => {
     API.postAnswer(formObject)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        props.setAnswers([...props.answers, res.data]);
+        setFormObject(defaultInput);
       })
       .catch((err) => {
         console.log(err.response);
@@ -34,7 +37,7 @@ const Answer = (props) => {
       ...formObject,
       likes: 0,
       dislikes: 0,
-      questionId: props.questionData.id,
+      questionId: props.question.id,
     });
     setShouldSave(true);
   };
@@ -49,6 +52,7 @@ const Answer = (props) => {
             as="textarea"
             rows="11"
             name="body"
+            value={formObject.body}
             onChange={handleInputChange}
           />
         </Form.Group>

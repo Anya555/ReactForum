@@ -9,11 +9,12 @@ export default {
     return axios.get("/api/questions");
   },
 
-  updateLikesQty: (id, quantity) => {
-    console.log("api route hit");
-    console.log(id);
-    console.log(quantity);
-    return axios.put("/api/questions/" + id, quantity);
+  updateQuestion: (question) => {
+    return axios.put("/api/questions/" + question.id, question);
+  },
+
+  updateAnswerLikesQty: (answer) => {
+    return axios.put("/api/answers/" + answer.id, answer);
   },
 
   postAnswer: (answer) => {
@@ -22,5 +23,9 @@ export default {
 
   getAllAnswers: () => {
     return axios.get("/api/answers");
+  },
+
+  findQuestion: (id) => {
+    return axios.get("/api/questions/" + id);
   },
 };

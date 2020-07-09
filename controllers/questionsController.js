@@ -15,8 +15,15 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
 
-  updateLikesCount: function (req, res) {
-    db.Questions.update({ _id: req.params.id }, req.body)
+  updateQuestionData: function (req, res) {
+    db.Questions.update(req.body, { where: { id: req.params.id } })
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
+
+  // Get all questions from db
+  findQuestionId: function (req, res) {
+    db.Questions.findByPk(req.params.id)
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },

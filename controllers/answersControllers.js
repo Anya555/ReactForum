@@ -14,4 +14,10 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
+  updateLikesCount: function (req, res) {
+    db.Answers.update(req.body, { where: { id: req.params.id } })
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
 };
