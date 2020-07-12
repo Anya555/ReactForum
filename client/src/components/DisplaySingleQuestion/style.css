@@ -7,13 +7,6 @@
   font-size: x-large;
 }
 
-.hljs-string,
-.hljs-section,
-.hljs-selector-class,
-.hljs-template-variable {
-  color: #800;
-}
-
 .asked {
   padding-right: 5px;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
@@ -8,6 +8,8 @@ import API from "../../utils/API";
 import "./style.css";
 import PostAnswer from "../PostAnswer";
 import ReactGA from "react-ga";
+
+import Highlight from "react-highlight.js";
 import hljs from "highlight.js";
 hljs.configure({ useBR: true });
 
@@ -16,13 +18,12 @@ ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_NO);
 const Question = () => {
   const [answers, setAnswers] = useState([]);
   const [question, setQuestion] = useState({});
-
   let location = useLocation();
 
   useEffect(() => {
+    hljs.initHighlightingOnLoad();
     let questionID = location.pathname.split("/")[2];
     findQuestionData(questionID);
-    hljs.initHighlightingOnLoad();
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
@@ -36,16 +37,11 @@ const Question = () => {
     if (code === text) {
       code = "";
     }
+
     return (
       <>
         <p>{text}</p>
-        {code ? (
-          <div className="col-md-10">
-            <pre>
-              <code className="hljs-string">{code}</code>
-            </pre>
-          </div>
-        ) : null}
+        {code ? <Highlight>{code}</Highlight> : null}
       </>
     );
   };
@@ -63,7 +59,6 @@ const Question = () => {
       indices.push(index);
       startIndex = index + searchStrLen;
     }
-
     return indices;
   }
 
@@ -152,7 +147,7 @@ const Question = () => {
               </div>
               <div className="asked">asked</div>
               {moment(question.createdAt).fromNow()}
-              <div className="col-md-3">views:{question.views}</div>
+              <div className="col-md-2">views: {question.views}</div>
             </div>
             <hr></hr>
             <br></br>
