@@ -7,17 +7,65 @@ import * as moment from "moment";
 import API from "../../utils/API";
 import "./style.css";
 import PostAnswer from "../PostAnswer";
+import ReactGA from "react-ga";
+import hljs from "highlight.js";
+hljs.configure({ useBR: true });
+
+ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_NO);
 
 const Question = () => {
   const [answers, setAnswers] = useState([]);
   const [question, setQuestion] = useState({});
+
   let location = useLocation();
 
   useEffect(() => {
-    // find question id
     let questionID = location.pathname.split("/")[2];
     findQuestionData(questionID);
+    hljs.initHighlightingOnLoad();
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
+
+  const formatCode = (body) => {
+    if (!body) {
+      return;
+    }
+    let indices = getIndicesOf("```", body);
+    let code = body.substring(indices[0] + 3, indices[1]);
+    let text = body.substring(0, indices[0]);
+    if (code === text) {
+      code = "";
+    }
+    return (
+      <>
+        <p>{text}</p>
+        {code ? (
+          <div className="col-md-10">
+            <pre>
+              <code className="hljs-string">{code}</code>
+            </pre>
+          </div>
+        ) : null}
+      </>
+    );
+  };
+
+  function getIndicesOf(searchStr, str) {
+    let searchStrLen = searchStr.length;
+    if (searchStrLen == 0) {
+      return [];
+    }
+    let startIndex = 0,
+      index,
+      indices = [];
+
+    while ((index = str.indexOf(searchStr, startIndex)) > -1) {
+      indices.push(index);
+      startIndex = index + searchStrLen;
+    }
+
+    return indices;
+  }
 
   const findQuestionData = (id) => {
     API.findQuestion(id)
@@ -88,14 +136,14 @@ const Question = () => {
 
             <h2>{question.title}</h2>
             <div className="row">
-              <div className="col-md-2 likes">
+              <div className="col-md-1 likes">
                 <AiOutlineLike
                   className="likes-icon"
                   onClick={() => updateQuestion("likes")}
                 />
                 {question.likes}
               </div>
-              <div className="col-md-2 likes">
+              <div className="col-md-1 likes">
                 <AiOutlineDislike
                   className="likes-icon"
                   onClick={() => updateQuestion("dislikes")}
@@ -104,14 +152,12 @@ const Question = () => {
               </div>
               <div className="asked">asked</div>
               {moment(question.createdAt).fromNow()}
-              <div>Views:{question.views}</div>
+              <div className="col-md-3">views:{question.views}</div>
             </div>
             <hr></hr>
             <br></br>
-            <p>{question.body}</p>
-            <div className="col-md-10">
-              <Card className="code">{question.code}</Card>
-            </div>
+            {formatCode(question.body)}
+
             <hr></hr>
             <br></br>
 
@@ -142,7 +188,7 @@ const Question = () => {
                     {moment(answer.createdAt).fromNow()}
                   </div>
                   <hr></hr>
-                  <p>{answer.body}</p>
+                  {formatCode(answer.body)}
                   <hr></hr>
                 </div>
               );

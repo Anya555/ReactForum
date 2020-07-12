@@ -50,7 +50,7 @@ const Answer = (props) => {
           <Form.Text className="text-muted"></Form.Text>
           <Form.Control
             as="textarea"
-            rows="11"
+            rows="6"
             name="body"
             value={formObject.body}
             onChange={handleInputChange}

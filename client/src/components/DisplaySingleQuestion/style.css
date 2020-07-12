@@ -7,10 +7,11 @@
   font-size: x-large;
 }
 
-.code {
-  background-color: rgb(233, 229, 229);
-  border-radius: 0;
-  border-color: rgb(233, 229, 229);
+.hljs-string,
+.hljs-section,
+.hljs-selector-class,
+.hljs-template-variable {
+  color: #800;
 }
 
 .asked {

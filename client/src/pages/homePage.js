@@ -16,6 +16,7 @@ const Home = () => {
   const displayAll = () => {
     API.displayAllQuestions()
       .then((res) => {
+        console.log(res.data);
         setQuestions(res.data);
       })
       .catch((err) => {
@@ -52,6 +53,9 @@ const Home = () => {
                     </div>
                     <div className="col-md-2 count">
                       Answers: {getAnswersSum(question.id)}
+                    </div>
+                    <div className="col-md-2 count">
+                      Views: {question.views}
                     </div>
                     <Link
                       to={"/display-single-question/" + question.id}
