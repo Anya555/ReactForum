@@ -2,17 +2,12 @@ import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
-import Card from "react-bootstrap/Card";
 import * as moment from "moment";
 import API from "../../utils/API";
 import "./style.css";
 import PostAnswer from "../PostAnswer";
 import ReactGA from "react-ga";
-
 import Highlight from "react-highlight.js";
-import hljs from "highlight.js";
-hljs.configure({ useBR: true });
-
 ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_NO);
 
 const Question = () => {
@@ -21,7 +16,6 @@ const Question = () => {
   let location = useLocation();
 
   useEffect(() => {
-    hljs.initHighlightingOnLoad();
     let questionID = location.pathname.split("/")[2];
     findQuestionData(questionID);
     ReactGA.pageview(window.location.pathname + window.location.search);
@@ -32,12 +26,12 @@ const Question = () => {
       return;
     }
     let indices = getIndicesOf("```", body);
+
     let code = body.substring(indices[0] + 3, indices[1]);
     let text = body.substring(0, indices[0]);
     if (code === text) {
       code = "";
     }
-
     return (
       <>
         <p>{text}</p>
@@ -46,7 +40,7 @@ const Question = () => {
     );
   };
 
-  function getIndicesOf(searchStr, str) {
+  const getIndicesOf = (searchStr, str) => {
     let searchStrLen = searchStr.length;
     if (searchStrLen == 0) {
       return [];
@@ -60,7 +54,7 @@ const Question = () => {
       startIndex = index + searchStrLen;
     }
     return indices;
-  }
+  };
 
   const findQuestionData = (id) => {
     API.findQuestion(id)
@@ -83,7 +77,6 @@ const Question = () => {
   const updateQuestion = (name) => {
     const questionDataCopy = { ...question };
     questionDataCopy[name] += 1;
-
     API.updateQuestion(questionDataCopy)
       .then(() => {
         setQuestion(questionDataCopy);
@@ -152,10 +145,8 @@ const Question = () => {
             <hr></hr>
             <br></br>
             {formatCode(question.body)}
-
             <hr></hr>
             <br></br>
-
             {answers.map((answer) => {
               return (
                 <div key={answer.id}>

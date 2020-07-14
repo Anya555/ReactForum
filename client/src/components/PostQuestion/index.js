@@ -5,15 +5,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./style.css";
 import API from "../../utils/API";
-import hljs from "highlight.js";
-hljs.configure({ useBR: true });
 
 const PostQuestion = (props) => {
   const [formObject, setFormObject] = useState([]);
   const [shouldSave, setShouldSave] = useState(false);
 
   useEffect(() => {
-    hljs.initHighlightingOnLoad();
     if (shouldSave === true) {
       addItemToDb();
     }
@@ -68,7 +65,7 @@ const PostQuestion = (props) => {
                   </Form.Text>
                   <Form.Control
                     as="textarea"
-                    rows="11"
+                    rows="7"
                     name="body"
                     onChange={handleInputChange}
                   />
