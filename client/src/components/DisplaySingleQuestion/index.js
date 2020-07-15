@@ -131,15 +131,16 @@ const Question = () => {
                 />
                 {question.likes}
               </div>
-              <div className="col-md-1 likes">
+              <div className="col-md-2 likes">
                 <AiOutlineDislike
                   className="likes-icon"
                   onClick={() => updateQuestion("dislikes")}
                 />
                 {question.dislikes}
               </div>
-              <div className="asked">asked</div>
-              {moment(question.createdAt).fromNow()}
+              <div className="col-md-3 col-sm-12 asked">
+                asked: {moment(question.createdAt).fromNow()}
+              </div>
               <div className="col-md-2">views: {question.views}</div>
             </div>
             <hr></hr>
@@ -152,7 +153,7 @@ const Question = () => {
                 <div key={answer.id}>
                   <div className="answer">Answer:</div>
                   <div className="row">
-                    <div className="col-md-2 likes">
+                    <div className="col-md-1 likes">
                       <AiOutlineLike
                         className="likes-icon"
                         onClick={() =>
@@ -170,8 +171,9 @@ const Question = () => {
                       />
                       {answer.dislikes}
                     </div>
-                    <div className="asked">answered</div>
-                    {moment(answer.createdAt).fromNow()}
+                    <div className="col-md-4 col-sm-12 asked">
+                      answered: {moment(answer.createdAt).fromNow()}
+                    </div>
                   </div>
                   <hr></hr>
                   {formatCode(answer.body)}

@@ -61,7 +61,8 @@ const PostQuestion = (props) => {
                   <Form.Label className="title">Body</Form.Label>
                   <Form.Text className="text-muted">
                     Include all the information someone would need to answer
-                    your question
+                    your question. To add code blocks, wrap your code in 3
+                    backticks like following example : ```location.pathname```
                   </Form.Text>
                   <Form.Control
                     as="textarea"

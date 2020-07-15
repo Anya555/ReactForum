@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import Navbar from "./components/Navbar";
@@ -6,13 +6,14 @@ import PostQuestion from "./components/PostQuestion";
 import DisplaySingleQuestion from "./components/DisplaySingleQuestion";
 
 function App() {
+  const [search, setSearch] = useState("");
   return (
     <div>
       <Router>
-        <Navbar />
+        <Navbar search={search} setSearch={setSearch} />
         <Switch>
           <Route exact path="/">
-            <HomePage />
+            <HomePage search={search} setSearch={setSearch} />
           </Route>
           <Route exact path="/post-question">
             <PostQuestion />

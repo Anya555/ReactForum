@@ -1,32 +1,49 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import { IoIosMenu } from "react-icons/io";
+import Search from "../Search";
+
 import "./style.css";
 
-const NavBar = () => {
+const NavBar = (props) => {
   return (
     <>
-      <Navbar className="navb" bg="dark" variant="dark">
-        <Navbar.Brand className="brand">Coding Forum</Navbar.Brand>
-        <Nav className="mr-auto"></Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-        </Form>
-        <Link to="/post-question">
-          <Button variant="outline-info" className="ask-question">
-            Ask question
-          </Button>
-        </Link>
-        <Link to="/">
-          <Button variant="link" className="home">
-            Home
-          </Button>
-        </Link>
-      </Navbar>
+      <nav className="navbar navbar-expand-lg nav1">
+        <div className="brand">Coding Forum</div>
+        <Search setSearch={props.setSearch} />
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="menu">
+            <IoIosMenu />
+          </span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li>
+              <Link to="/post-question">
+                <Button variant="outline-info" className="ask-question">
+                  Ask question
+                </Button>
+              </Link>
+            </li>
+            <li>
+              <Link to="/">
+                <Button variant="link" className="home">
+                  Home
+                </Button>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </>
   );
 };

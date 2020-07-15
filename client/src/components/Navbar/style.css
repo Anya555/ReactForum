@@ -1,10 +1,11 @@
-.navb {
+.navbar {
   background-color: black !important;
 }
 
 .brand {
-  color: "white" !important;
+  color: white !important;
   text-transform: uppercase;
+  padding-right: 10px;
 }
 
 .ask-question {
@@ -21,4 +22,8 @@
 .home:hover {
   text-decoration: none;
   color: #17a2b8;
+}
+
+.menu {
+  color: white;
 }
