@@ -47,10 +47,14 @@ const Home = (props) => {
           <div className="col-md-8 offset-sm-2 col-sm-12">
             <br></br> <br></br>
             {filteredQuestions
-              .filter((question) =>
-                question.title
-                  .toLowerCase()
-                  .includes(props.search.toLowerCase())
+              .filter(
+                (question) =>
+                  question.title
+                    .toLowerCase()
+                    .includes(props.search.toLowerCase()) ||
+                  question.body
+                    .toLowerCase()
+                    .includes(props.search.toLowerCase())
               )
               .map((question) => (
                 <Card.Body key={question.id}>

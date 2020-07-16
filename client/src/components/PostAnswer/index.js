@@ -11,6 +11,7 @@ const Answer = (props) => {
   useEffect(() => {
     if (shouldSave === true) {
       addAnswerToDb();
+      setShouldSave(false);
     }
   }, [shouldSave]);
 

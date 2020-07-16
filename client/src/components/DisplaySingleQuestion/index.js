@@ -14,6 +14,7 @@ const Question = () => {
   const [answers, setAnswers] = useState([]);
   const [question, setQuestion] = useState({});
   let location = useLocation();
+  let code = useRef(null);
 
   useEffect(() => {
     let questionID = location.pathname.split("/")[2];
@@ -25,19 +26,42 @@ const Question = () => {
     if (!body) {
       return;
     }
-    let indices = getIndicesOf("```", body);
+    return <>{getContent(body)}</>;
+  };
 
-    let code = body.substring(indices[0] + 3, indices[1]);
-    let text = body.substring(0, indices[0]);
-    if (code === text) {
-      code = "";
+  const getContent = (body) => {
+    let content = [];
+    let indices = getIndicesOf("```", body);
+    console.log(indices, body);
+    if (indices.length > 0) {
+      for (let i = 0; i < indices.length; i = i + 2) {
+        if (indices[i] === 0 || i !== 0) {
+          console.log("if", i, indices[i], indices[i + 1], indices[i + 2]);
+          content.push(
+            <Highlight>
+              {body.substring(indices[i] + 3, indices[i + 1])}
+            </Highlight>
+          );
+          content.push(
+            <p>{body.substring(indices[i + 1] + 3, indices[i + 2])}</p>
+          );
+        } else {
+          console.log("else", i, indices[i], indices[i + 1], indices[i + 2]);
+          content.push(<p>{body.substring(0, indices[i])}</p>);
+          content.push(
+            <Highlight>
+              {body.substring(indices[i] + 3, indices[i + 1])}
+            </Highlight>
+          );
+          content.push(
+            <p>{body.substring(indices[i + 1] + 3, indices[i + 2])}</p>
+          );
+        }
+      }
+    } else {
+      content.push(<p>{body}</p>);
     }
-    return (
-      <>
-        <p>{text}</p>
-        {code ? <Highlight>{code}</Highlight> : null}
-      </>
-    );
+    return content;
   };
 
   const getIndicesOf = (searchStr, str) => {
