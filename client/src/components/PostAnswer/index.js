@@ -23,7 +23,6 @@ const Answer = (props) => {
   const addAnswerToDb = () => {
     API.postAnswer(formObject)
       .then((res) => {
-        console.log(res.data);
         props.setAnswers([...props.answers, res.data]);
         setFormObject(defaultInput);
       })
@@ -48,7 +47,10 @@ const Answer = (props) => {
       <Form>
         <Form.Group controlId="exampleForm.ControlTextarea1">
           <Form.Label className="title">Your Answer</Form.Label>
-          <Form.Text className="text-muted"></Form.Text>
+          <Form.Text className="text-muted">
+            To add code blocks, wrap your code in 3 backticks like following
+            example : ```location.pathname```
+          </Form.Text>
           <Form.Control
             as="textarea"
             rows="6"

@@ -44,7 +44,7 @@ const Home = (props) => {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-md-8 offset-sm-2 col-sm-12">
+          <div className="col-md-8  col-sm-12">
             <br></br> <br></br>
             {filteredQuestions
               .filter(
@@ -83,6 +83,11 @@ const Home = (props) => {
                   <hr></hr>
                 </Card.Body>
               ))}
+          </div>
+          <div className="col-md-2  col-sm-12">
+            <br></br>
+
+            <img src="./images/ducki.jpg" width="300px" />
           </div>
         </div>
       </div>

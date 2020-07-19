@@ -10,6 +10,7 @@ const SearchBar = (props) => {
   return (
     <Form>
       <FormControl
+        className="search"
         placeholder="Search"
         onChange={handleInputChange}
       ></FormControl>

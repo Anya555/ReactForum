@@ -7,10 +7,10 @@
   font-size: x-large;
 }
 
-.asked {
-  /* padding-right: 5px; */
-}
-
 .answer {
   font-weight: bold;
+}
+
+p {
+  white-space: pre-wrap;
 }

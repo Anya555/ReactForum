@@ -10,7 +10,8 @@ const NavBar = (props) => {
   return (
     <>
       <nav className="navbar navbar-expand-lg nav1">
-        <div className="brand">Coding Forum</div>
+        <div className="brand">Rubber Duck</div>
+        <img src="/images/duck.jpg" height="50px" />
         <Search setSearch={props.setSearch} />
         <button
           className="navbar-toggler"

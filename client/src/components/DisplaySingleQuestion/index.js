@@ -6,56 +6,46 @@ import * as moment from "moment";
 import API from "../../utils/API";
 import "./style.css";
 import PostAnswer from "../PostAnswer";
-import ReactGA from "react-ga";
 import Highlight from "react-highlight.js";
-ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_NO);
 
 const Question = () => {
   const [answers, setAnswers] = useState([]);
   const [question, setQuestion] = useState({});
   let location = useLocation();
-  let code = useRef(null);
 
   useEffect(() => {
     let questionID = location.pathname.split("/")[2];
     findQuestionData(questionID);
-    ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
-  const formatCode = (body) => {
+  const getContent = (body) => {
     if (!body) {
       return;
     }
-    return <>{getContent(body)}</>;
-  };
-
-  const getContent = (body) => {
     let content = [];
-    let indices = getIndicesOf("```", body);
-    console.log(indices, body);
-    if (indices.length > 0) {
-      for (let i = 0; i < indices.length; i = i + 2) {
-        if (indices[i] === 0 || i !== 0) {
-          console.log("if", i, indices[i], indices[i + 1], indices[i + 2]);
+    let codeIndices = getIndicesOf("```", body);
+    if (codeIndices.length > 0) {
+      for (let i = 0; i < codeIndices.length; i = i + 2) {
+        if (codeIndices[i] === 0 || i !== 0) {
+          // console.log("if", i, codeIndices[i], codeIndices[i + 1], codeIndices[i + 2]);
           content.push(
             <Highlight>
-              {body.substring(indices[i] + 3, indices[i + 1])}
+              {body.substring(codeIndices[i] + 3, codeIndices[i + 1])}
             </Highlight>
           );
-          content.push(
-            <p>{body.substring(indices[i + 1] + 3, indices[i + 2])}</p>
-          );
+          let text = body.substring(codeIndices[i + 1] + 3, codeIndices[i + 2]);
+          content.push(generateBody(text));
         } else {
-          console.log("else", i, indices[i], indices[i + 1], indices[i + 2]);
-          content.push(<p>{body.substring(0, indices[i])}</p>);
+          // console.log("else", i, codeIndices[i], codeIndices[i + 1], codeIndices[i + 2]);
+          let text = body.substring(0, codeIndices[i]);
+          content.push(generateBody(text));
           content.push(
             <Highlight>
-              {body.substring(indices[i] + 3, indices[i + 1])}
+              {body.substring(codeIndices[i] + 3, codeIndices[i + 1])}
             </Highlight>
           );
-          content.push(
-            <p>{body.substring(indices[i + 1] + 3, indices[i + 2])}</p>
-          );
+          text = body.substring(codeIndices[i + 1] + 3, codeIndices[i + 2]);
+          content.push(generateBody(text));
         }
       }
     } else {
@@ -64,6 +54,61 @@ const Question = () => {
     return content;
   };
 
+  const generateBody = (text) => {
+    let linkIndices = [];
+    let content = [];
+    let links = text.match(
+      /(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi
+    );
+
+    if (links) {
+      links.forEach((link) => {
+        linkIndices.push(text.indexOf(link));
+      });
+      console.log(linkIndices);
+      linkIndices.forEach((linkIndex, j) => {
+        console.log(text[0]);
+        if (linkIndex === 0 || j !== 0) {
+          let firstText = text.substring(
+            linkIndex + links[j].length,
+            linkIndices[j + 1]
+          );
+          let firstLink = text.substring(
+            linkIndex,
+            linkIndex + links[j].length
+          );
+          content.push(
+            <a href={firstLink} target="_blank" rel="noopener noreferrer">
+              {firstLink}
+            </a>
+          );
+          content.push(<p>{firstText}</p>);
+        } else {
+          let firstText = text.substring(0, linkIndex);
+          let firstLink = text.substring(
+            linkIndex,
+            linkIndex + links[j].length
+          );
+          let secondText = text.substring(
+            linkIndex + links[j].length,
+            linkIndices[j + 1]
+          );
+          content.push(<p>{firstText}</p>);
+          content.push(
+            <a href={firstLink} target="_blank" rel="noopener noreferrer">
+              {firstLink}
+            </a>
+          );
+          content.push(<p>{secondText}</p>);
+        }
+      });
+    } else {
+      content.push(<p>{text}</p>);
+    }
+    return content;
+  };
+
+  // get codeIndices of all code occurrences
   const getIndicesOf = (searchStr, str) => {
     let searchStrLen = searchStr.length;
     if (searchStrLen == 0) {
@@ -71,13 +116,13 @@ const Question = () => {
     }
     let startIndex = 0,
       index,
-      indices = [];
+      codeIndices = [];
 
     while ((index = str.indexOf(searchStr, startIndex)) > -1) {
-      indices.push(index);
+      codeIndices.push(index);
       startIndex = index + searchStrLen;
     }
-    return indices;
+    return codeIndices;
   };
 
   const findQuestionData = (id) => {
@@ -169,7 +214,7 @@ const Question = () => {
             </div>
             <hr></hr>
             <br></br>
-            {formatCode(question.body)}
+            {getContent(question.body)}
             <hr></hr>
             <br></br>
             {answers.map((answer) => {
@@ -200,7 +245,7 @@ const Question = () => {
                     </div>
                   </div>
                   <hr></hr>
-                  {formatCode(answer.body)}
+                  {getContent(answer.body)}
                   <hr></hr>
                 </div>
               );
