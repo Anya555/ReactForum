@@ -207,7 +207,7 @@ const Question = () => {
                 />
                 {question.dislikes}
               </div>
-              <div className="col-md-3 col-sm-12 asked">
+              <div className="col-md-4 col-sm-12 asked">
                 asked: {moment(question.createdAt).fromNow()}
               </div>
               <div className="col-md-2">views: {question.views}</div>
