@@ -3,7 +3,8 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: process.env.HOST || "http://localhost:3001",
+      target: "http://localhost:3001",
+      secure: false,
       changeOrigin: true,
     })
   );
