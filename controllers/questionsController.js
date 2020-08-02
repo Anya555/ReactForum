@@ -3,7 +3,6 @@ const db = require("../models");
 module.exports = {
   // Post question to db
   create: function (req, res) {
-    console.log(req.body);
     db.Questions.create(req.body)
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
