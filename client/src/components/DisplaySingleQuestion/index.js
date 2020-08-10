@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
@@ -57,6 +57,7 @@ const Question = () => {
   const generateBody = (text) => {
     let linkIndices = [];
     let content = [];
+    // identifies all links
     let links = text.match(
       /(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi
     );
@@ -188,7 +189,7 @@ const Question = () => {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-md-8 offset-sm-2 col-sm-12">
+          <div className="col-md-8 offset-sm-2 col-sm-12" key={question.id}>
             <br></br>
 
             <h2>{question.title}</h2>

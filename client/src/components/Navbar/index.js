@@ -11,7 +11,7 @@ const NavBar = (props) => {
     <>
       <nav className="navbar navbar-expand-lg nav1">
         <div className="brand">Rubber Duck</div>
-        <img src="/images/duck.jpg" height="50px" />
+        <img src="/images/duck.jpg" height="50px" alt="rubber duck" />
         <Search setSearch={props.setSearch} />
         <button
           className="navbar-toggler"

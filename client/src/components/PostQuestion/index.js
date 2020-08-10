@@ -24,7 +24,6 @@ const PostQuestion = (props) => {
   const addItemToDb = () => {
     API.saveQuestionToDb(formObject)
       .then((res) => {
-        console.log(res);
         props.history.replace("/");
       })
       .catch((error) => {
