@@ -44,14 +44,8 @@ const Home = (props) => {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-md-2">
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <img src="/images/ducki.jpg" width="300px"></img>
+          <div className="col-md-2 offset-2">
+            <img src="/images/ducki.jpg" width="200px" height="200px"></img>
           </div>
           <div className="col-md-8 offset-sm-2  col-sm-12">
             <br></br> <br></br>

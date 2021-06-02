@@ -57,7 +57,7 @@ const Question = () => {
   const generateBody = (text) => {
     let linkIndices = [];
     let content = [];
-    // identifies all links
+    // identifies all links 
     let links = text.match(
       /(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi
     );
